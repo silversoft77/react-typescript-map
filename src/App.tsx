@@ -1,10 +1,11 @@
+import Home from './components/Home';
 
-import './App.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
   return (
     <div className="App">
-      Mapbox
+      <Home />
     </div>
   );
 }
