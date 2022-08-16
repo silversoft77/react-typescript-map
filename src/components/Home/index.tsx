@@ -4,6 +4,7 @@ import Navbar from "../Navbar";
 import Mapbox from "../Mapbox";
 import { CoordinatesType } from "../../types/mapbox";
 import cityInfo from "../../constants/cityInfo";
+import { getCoordinates } from "../../services/apis";
 
 import styles from "./style";
 
@@ -14,6 +15,7 @@ export default function Home() {
   const [coordinates, setCoordinates] = useState<CoordinatesType>(
     cityInfo.coordinates
   );
+  const [markers, setMarkers] = useState<Array<CoordinatesType>>([]);
 
   const handleClickMap = (e: mapboxgl.MapMouseEvent & mapboxgl.EventData) => {
     setCoordinates(e.lngLat);
@@ -31,6 +33,17 @@ export default function Home() {
     setCount(parseInt(e.target.value));
   };
 
+  const handleClickPlot = async () => {
+    const result = await getCoordinates({
+      width,
+      height,
+      count,
+      center: coordinates,
+    });
+
+    result && setMarkers(result);
+  };
+
   return (
     <div className={styles.wrapper}>
       <Navbar
@@ -41,12 +54,15 @@ export default function Home() {
         handleChangeWidth={handleChangeWidth}
         handleChangeHeight={handleChangeHeight}
         handleChangeCount={handleChangeCount}
+        handleClickPlot={handleClickPlot}
       />
 
       <Mapbox
-        coordinates={coordinates}
         width={width}
         height={height}
+        zoom={9}
+        coordinates={coordinates}
+        markers={markers}
         handleClickMap={handleClickMap}
       />
     </div>

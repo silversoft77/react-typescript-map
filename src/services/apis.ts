@@ -5,10 +5,9 @@ import { CoordinatesRequest } from "../types/api";
 
 export const getCoordinates = (data: CoordinatesRequest) =>
   axios
-    .post(`${SERVER_URL}/${API_ENDPOINT}/mapbox/coordinates`, data, {
-      headers: {
-        "content-type": "application/json",
-      },
-    })
+    .post(`${SERVER_URL}/${API_ENDPOINT}/mapbox/coordinates`, data)
     .then((receipt: AxiosResponse) => receipt.data)
-    .catch((error: AxiosError) => console.error(error.message));
+    .catch((error: AxiosError) => {
+      console.error(error.message)
+      return false;
+    });

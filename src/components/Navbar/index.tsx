@@ -10,6 +10,7 @@ export default function Navbar({
   handleChangeWidth,
   handleChangeHeight,
   handleChangeCount,
+  handleClickPlot
 }: NavbarPropsType) {
   return (
     <div className={styles.navbar}>
@@ -40,7 +41,7 @@ export default function Navbar({
         max={100}
       />
 
-      <button type="button" className={styles.button}>
+      <button type="button" className={styles.button} onClick={handleClickPlot}>
         Plot
       </button>
 
